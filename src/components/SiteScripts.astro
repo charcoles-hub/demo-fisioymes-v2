@@ -1,0 +1,96 @@
+<script is:inline>
+  (function () {
+    const nav = document.querySelector("[data-nav]");
+    const onScroll = () => nav && nav.classList.toggle("is-stuck", window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const toggle = document.querySelector("[data-nav-toggle]");
+    const links = document.getElementById("primary-nav");
+    if (nav && toggle && links) {
+      const closeMenu = () => {
+        nav.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      };
+      toggle.addEventListener("click", () => {
+        const isOpen = nav.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+      links.addEventListener("click", (e) => { if (e.target.closest("a")) closeMenu(); });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && nav.classList.contains("is-open")) { closeMenu(); toggle.focus(); }
+      });
+    }
+
+    const LANG_KEY = "fym-lang";
+    const langBtns = document.querySelectorAll("[data-lang-btn]");
+    const i18nEls = document.querySelectorAll("[data-ca-text]");
+    function applyLang(lang) {
+      const l = lang === "es" ? "es" : "ca";
+      i18nEls.forEach((el) => { el.textContent = l === "es" ? el.dataset.esText : el.dataset.caText; });
+      document.documentElement.lang = l;
+      langBtns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.langBtn === l)));
+      try { localStorage.setItem(LANG_KEY, l); } catch (e) {}
+    }
+    langBtns.forEach((b) => b.addEventListener("click", () => applyLang(b.dataset.langBtn)));
+    let savedLang = "ca";
+    try { savedLang = localStorage.getItem(LANG_KEY) || "ca"; } catch (e) {}
+    applyLang(savedLang);
+
+    const contactForm = document.querySelector("[data-contact-form]");
+    if (contactForm) {
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = contactForm.name.value.trim();
+        const email = contactForm.email.value.trim();
+        const message = contactForm.message ? contactForm.message.value.trim() : "";
+        const subject = encodeURIComponent(`Contacte web — ${name}`);
+        const body = encodeURIComponent(`${message}\n\n${email}`);
+        window.location.href = `mailto:info@fisioymes.com?subject=${subject}&body=${body}`;
+      });
+    }
+
+    document.querySelectorAll("[data-accordion-btn]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest("[data-accordion-item]");
+        item.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", String(item.classList.contains("is-open")));
+      });
+    });
+
+    const heroSlides = [...document.querySelectorAll("[data-hero-slide]")];
+    const heroBodies = [...document.querySelectorAll("[data-hero-body]")];
+    const heroDots = [...document.querySelectorAll("[data-hero-dot]")];
+    if (heroSlides.length > 1) {
+      let idx = 0;
+      const show = (i) => {
+        heroSlides.forEach((s, si) => s.classList.toggle("is-active", si === i));
+        heroBodies.forEach((b, bi) => {
+          b.classList.toggle("is-active", bi === i);
+          b.setAttribute("aria-hidden", bi === i ? "false" : "true");
+        });
+        heroDots.forEach((d, di) => d.classList.toggle("is-active", di === i));
+        idx = i;
+      };
+      heroDots.forEach((d, i) => d.addEventListener("click", () => { show(i); restart(); }));
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let timer;
+      function restart() {
+        clearInterval(timer);
+        if (!reduce) timer = setInterval(() => show((idx + 1) % heroSlides.length), 6000);
+      }
+      restart();
+    }
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce && "IntersectionObserver" in window) {
+      document.documentElement.classList.add("js-reveal");
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+        }
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+      document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+    }
+  })();
+</script>

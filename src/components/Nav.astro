@@ -1,0 +1,28 @@
+---
+import { navLinks, i18nCommon, tr, WA } from "../lib/site";
+// Per defecte el nav és sòlid (fons fosc fix, per a pàgines sense hero).
+// Passa `transparent` a les pàgines amb hero d'imatge (com la home).
+const { transparent = false } = Astro.props;
+---
+<header class={`nav ${transparent ? "" : "nav--solid"}`} data-nav>
+  <div class="wrap nav__row">
+    <a class="brand" href="/" aria-label="FisioyMés, inici">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__word">FisioyMés</span>
+    </a>
+    <nav class="nav__links" id="primary-nav" aria-label="Principal">
+      {navLinks.map((l) => <a href={l.href} data-ca-text={l.ca} data-es-text={l.es}>{l.ca}</a>)}
+      <div class="lang-toggle" role="group" aria-label="Idioma">
+        <button type="button" class="lang-btn" data-lang-btn="ca" aria-pressed="true">CA</button>
+        <button type="button" class="lang-btn" data-lang-btn="es" aria-pressed="false">ES</button>
+      </div>
+    </nav>
+    <button class="nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav" aria-label={i18nCommon.navToggleAria.ca}>
+      <span class="nav__toggle-bar" aria-hidden="true"></span>
+    </button>
+    <a class="btn btn--solid nav__cta" href={WA} target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.7 14.2c-.2.6-1.4 1.2-2 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.6.8 2 .9 2.1.1.2.1.4 0 .6-.4.8-.8.8-.5 1.3.9 1.7 1.8 2.3 3.2 3 .2.1.4.1.5-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1l1.9.9c.2.1.4.2.5.3.1.2.1.9-.1 1.4Z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</header>

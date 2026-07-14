@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Foot from "../components/Foot.astro";
+import SiteScripts from "../components/SiteScripts.astro";
+import { tr } from "../lib/site";
+
+const i18n = {
+  h: { ca: "Política de Cookies", es: "Política de Cookies" },
+  s1h: { ca: "1. Què són les cookies", es: "1. Qué son las cookies" },
+  s1p: {
+    ca: "Les cookies són petits arxius de text que un lloc web instal·la al navegador de l'usuari per emmagatzemar i recuperar informació sobre la navegació. No danyen l'equip ni els arxius de l'usuari.",
+    es: "Las cookies son pequeños archivos de texto que un sitio web instala en el navegador del usuario para almacenar y recuperar información sobre la navegación. No dañan el equipo ni los archivos del usuario.",
+  },
+  s2h: { ca: "2. Cookies que utilitzem", es: "2. Cookies que utilizamos" },
+  s2p: {
+    ca: "Aquest lloc web utilitza cookies tècniques o necessàries, imprescindibles per al correcte funcionament i navegació pel lloc web, i pot utilitzar cookies analítiques que permeten quantificar el nombre de visitants i analitzar-ne l'ús de forma anònima per millorar el servei. No s'utilitzen cookies de publicitat de tercers.",
+    es: "Este sitio web utiliza cookies técnicas o necesarias, imprescindibles para el correcto funcionamiento y navegación por el sitio web, y puede utilizar cookies analíticas que permiten cuantificar el número de visitantes y analizar su uso de forma anónima para mejorar el servicio. No se utilizan cookies de publicidad de terceros.",
+  },
+  s3h: { ca: "3. Finalitat", es: "3. Finalidad" },
+  s3p: {
+    ca: "Les cookies utilitzades tenen com a finalitat garantir el funcionament bàsic del lloc web i, si escau, obtenir estadístiques agregades sobre la navegació dels usuaris que ens permetin millorar els nostres continguts i serveis.",
+    es: "Las cookies utilizadas tienen como finalidad garantizar el funcionamiento básico del sitio web y, en su caso, obtener estadísticas agregadas sobre la navegación de los usuarios que nos permitan mejorar nuestros contenidos y servicios.",
+  },
+  s4h: { ca: "4. Com gestionar o desactivar les cookies", es: "4. Cómo gestionar o desactivar las cookies" },
+  s4p: {
+    ca: "Podeu permetre, bloquejar o eliminar les cookies instal·lades al vostre equip mitjançant la configuració de les opcions del navegador que utilitzeu. Teniu instruccions disponibles per als navegadors més habituals (Chrome, Firefox, Safari, Edge) als seus respectius llocs d'ajuda. Tingueu en compte que desactivar certes cookies pot afectar el funcionament del lloc web.",
+    es: "Puede permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador que utilice. Tiene instrucciones disponibles para los navegadores más habituales (Chrome, Firefox, Safari, Edge) en sus respectivos sitios de ayuda. Tenga en cuenta que desactivar ciertas cookies puede afectar el funcionamiento del sitio web.",
+  },
+};
+---
+
+<Layout title="Política de Cookies · FisioyMés">
+  <Nav />
+  <main>
+    <section class="legal">
+      <div class="wrap wrap--narrow">
+        <h1 {...tr(i18n.h)}>{i18n.h.ca}</h1>
+        <h2 {...tr(i18n.s1h)}>{i18n.s1h.ca}</h2>
+        <p {...tr(i18n.s1p)}>{i18n.s1p.ca}</p>
+        <h2 {...tr(i18n.s2h)}>{i18n.s2h.ca}</h2>
+        <p {...tr(i18n.s2p)}>{i18n.s2p.ca}</p>
+        <h2 {...tr(i18n.s3h)}>{i18n.s3h.ca}</h2>
+        <p {...tr(i18n.s3p)}>{i18n.s3p.ca}</p>
+        <h2 {...tr(i18n.s4h)}>{i18n.s4h.ca}</h2>
+        <p {...tr(i18n.s4p)}>{i18n.s4p.ca}</p>
+      </div>
+    </section>
+  </main>
+  <Foot />
+  <SiteScripts />
+</Layout>

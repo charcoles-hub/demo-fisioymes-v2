@@ -1,0 +1,49 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Foot from "../components/Foot.astro";
+import SiteScripts from "../components/SiteScripts.astro";
+import { tr, WA } from "../lib/site";
+
+const prices = [
+  { t: { ca: "Sessió de fisioteràpia", es: "Sesión de fisioterapia" }, d: { ca: "30 minuts.", es: "30 minutos." }, p: { ca: "39 €", es: "39 €" } },
+  { t: { ca: "Sessió de fisioteràpia", es: "Sesión de fisioterapia" }, d: { ca: "50 minuts.", es: "50 minutos." }, p: { ca: "55 €", es: "55 €" } },
+  { t: { ca: "Bo de sessions", es: "Bono de sesiones" }, d: { ca: "3 / 5 / 10 sessions.", es: "3 / 5 / 10 sesiones." }, p: { ca: "-6% / -10% / -15%", es: "-6% / -10% / -15%" } },
+  { t: { ca: "Pilates individual", es: "Pilates individual" }, d: { ca: "1 o 2 classes per setmana.", es: "1 o 2 clases por semana." }, p: { ca: "45 € / 70 € classe", es: "45 € / 70 € clase" } },
+  { t: { ca: "Pilates en grup", es: "Pilates en grupo" }, d: { ca: "1 o 2 classes per setmana.", es: "1 o 2 clases por semana." }, p: { ca: "60 € / 90 € mes", es: "60 € / 90 € mes" } },
+  { t: { ca: "Primera classe de Pilates", es: "Primera clase de Pilates" }, d: { ca: "Perquè el provis sense compromís.", es: "Para que la pruebes sin compromiso." }, p: { ca: "Gratuïta", es: "Gratuita" } },
+];
+
+const i18n = {
+  h: { ca: "Tarifes", es: "Precios" },
+  lede: { ca: "Les nostres tarifes, clares des del primer dia.", es: "Nuestras tarifas, claras desde el primer día." },
+};
+---
+
+<Layout title="Tarifes · FisioyMés">
+  <Nav />
+  <main>
+    <section class="prices" aria-labelledby="prices-h">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <h1 id="prices-h" {...tr(i18n.h)}>{i18n.h.ca}</h1>
+          <p {...tr(i18n.lede)}>{i18n.lede.ca}</p>
+        </header>
+        <ul class="price-list">
+          {prices.map((row) => (
+            <li data-reveal>
+              <div>
+                <h3 {...tr(row.t)}>{row.t.ca}</h3>
+                <p {...tr(row.d)}>{row.d.ca}</p>
+              </div>
+              <span class="price-list__p" {...tr(row.p)}>{row.p.ca}</span>
+            </li>
+          ))}
+        </ul>
+        <div style="margin-top:2.5rem"><a class="btn btn--solid" href={WA} target="_blank" rel="noopener">WhatsApp</a></div>
+      </div>
+    </section>
+  </main>
+  <Foot />
+  <SiteScripts />
+</Layout>

@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Foot from "../components/Foot.astro";
+import SiteScripts from "../components/SiteScripts.astro";
+import { tr } from "../lib/site";
+
+const i18n = {
+  h: { ca: "Política de Privadesa", es: "Política de Privacidad" },
+  s1h: { ca: "1. Responsable del tractament", es: "1. Responsable del tratamiento" },
+  s1p: {
+    ca: "El responsable del tractament de les dades personals recollides a través d'aquest lloc web és FISIOYMES READEP SLP, amb NIF B42815951 i domicili a Carrer Xerric 4, 08172 Sant Cugat del Vallès (Barcelona). Podeu contactar amb nosaltres a través del correu electrònic info@fisioymes.com o del telèfon 637765866.",
+    es: "El responsable del tratamiento de los datos personales recogidos a través de este sitio web es FISIOYMES READEP SLP, con NIF B42815951 y domicilio en Carrer Xerric 4, 08172 Sant Cugat del Vallès (Barcelona). Puede contactar con nosotros a través del correo electrónico info@fisioymes.com o del teléfono 637765866.",
+  },
+  s2h: { ca: "2. Finalitat del tractament", es: "2. Finalidad del tratamiento" },
+  s2p: {
+    ca: "Les dades personals que ens faciliteu a través dels formularis de contacte, sol·licitud de cita o qualsevol altre canal del lloc web s'utilitzen únicament per gestionar la relació amb l'usuari: concertar i gestionar cites, respondre consultes i mantenir el contacte comercial que ens sol·liciteu.",
+    es: "Los datos personales que nos facilite a través de los formularios de contacto, solicitud de cita o cualquier otro canal del sitio web se utilizan únicamente para gestionar la relación con el usuario: concertar y gestionar citas, responder consultas y mantener el contacto comercial que nos solicite.",
+  },
+  s3h: { ca: "3. Base legal", es: "3. Base legal" },
+  s3p: {
+    ca: "La base legal per al tractament de les vostres dades és el consentiment que atorgueu en emplenar els formularis del lloc web o en contactar-nos directament per telèfon, email o WhatsApp.",
+    es: "La base legal para el tratamiento de sus datos es el consentimiento que otorga al rellenar los formularios del sitio web o al contactarnos directamente por teléfono, email o WhatsApp.",
+  },
+  s4h: { ca: "4. Termini de conservació", es: "4. Plazo de conservación" },
+  s4p: {
+    ca: "Les dades es conservaran mentre es mantingui la relació amb l'usuari i, un cop finalitzada aquesta, durant els terminis legalment establerts per atendre possibles responsabilitats derivades del tractament.",
+    es: "Los datos se conservarán mientras se mantenga la relación con el usuario y, una vez finalizada esta, durante los plazos legalmente establecidos para atender posibles responsabilidades derivadas del tratamiento.",
+  },
+  s5h: { ca: "5. Cessió de dades", es: "5. Cesión de datos" },
+  s5p: {
+    ca: "No es cediran dades a tercers, excepte obligació legal.",
+    es: "No se cederán datos a terceros, salvo obligación legal.",
+  },
+  s6h: { ca: "6. Drets de l'usuari", es: "6. Derechos del usuario" },
+  s6p: {
+    ca: "Podeu exercir en qualsevol moment els vostres drets d'accés, rectificació, cancel·lació/supressió, oposició, limitació del tractament i portabilitat de les dades, enviant una sol·licitud per escrit a info@fisioymes.com, adjuntant còpia d'un document que acrediti la vostra identitat.",
+    es: "Puede ejercer en cualquier momento sus derechos de acceso, rectificación, cancelación/supresión, oposición, limitación del tratamiento y portabilidad de los datos, enviando una solicitud por escrito a info@fisioymes.com, adjuntando copia de un documento que acredite su identidad.",
+  },
+  s7h: { ca: "7. Reclamació davant l'autoritat de control", es: "7. Reclamación ante la autoridad de control" },
+  s7p: {
+    ca: "Si considereu que el tractament de les vostres dades personals vulnera la normativa vigent, teniu dret a presentar una reclamació davant l'Agència Espanyola de Protecció de Dades (AEPD), a www.aepd.es.",
+    es: "Si considera que el tratamiento de sus datos personales vulnera la normativa vigente, tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD), en www.aepd.es.",
+  },
+};
+---
+
+<Layout title="Política de Privadesa · FisioyMés">
+  <Nav />
+  <main>
+    <section class="legal">
+      <div class="wrap wrap--narrow">
+        <h1 {...tr(i18n.h)}>{i18n.h.ca}</h1>
+        <h2 {...tr(i18n.s1h)}>{i18n.s1h.ca}</h2>
+        <p {...tr(i18n.s1p)}>{i18n.s1p.ca}</p>
+        <h2 {...tr(i18n.s2h)}>{i18n.s2h.ca}</h2>
+        <p {...tr(i18n.s2p)}>{i18n.s2p.ca}</p>
+        <h2 {...tr(i18n.s3h)}>{i18n.s3h.ca}</h2>
+        <p {...tr(i18n.s3p)}>{i18n.s3p.ca}</p>
+        <h2 {...tr(i18n.s4h)}>{i18n.s4h.ca}</h2>
+        <p {...tr(i18n.s4p)}>{i18n.s4p.ca}</p>
+        <h2 {...tr(i18n.s5h)}>{i18n.s5h.ca}</h2>
+        <p {...tr(i18n.s5p)}>{i18n.s5p.ca}</p>
+        <h2 {...tr(i18n.s6h)}>{i18n.s6h.ca}</h2>
+        <p {...tr(i18n.s6p)}>{i18n.s6p.ca}</p>
+        <h2 {...tr(i18n.s7h)}>{i18n.s7h.ca}</h2>
+        <p {...tr(i18n.s7p)}>{i18n.s7p.ca}</p>
+      </div>
+    </section>
+  </main>
+  <Foot />
+  <SiteScripts />
+</Layout>

@@ -1,0 +1,306 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Foot from "../components/Foot.astro";
+import SiteScripts from "../components/SiteScripts.astro";
+import { tr, WA, TEL } from "../lib/site";
+
+const img = (id: string, w: number, q = 75) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=${q}`;
+
+const heroSlides = [
+  {
+    img: "1519823551278-64ac92734fb1",
+    alt: "Equip de fisioterapeutes somrient a la clínica.",
+    title: { ca: "Benvingut/da a FisioyMés", es: "Bienvenido/a a FisioyMés" },
+    lede: {
+      ca: "Aquí trobaràs un equip compromès amb la teva salut. Apostem per una fisioteràpia basada en l'evidència, el tracte proper i els tractaments adaptats a cada persona per ajudar-te a mantenir una vida activa i saludable.",
+      es: "Aquí encontrarás un equipo comprometido con tu salud. Apostamos por una fisioterapia basada en la evidencia, el trato cercano y los tratamientos adaptados a cada persona para ayudarte a mantener una vida activa y saludable.",
+    },
+    cta: { ca: "Contacte", es: "Contacto", href: "#contacte" },
+  },
+  {
+    img: "1649751361457-01d3a696c7e6",
+    alt: "Fisioterapeuta tractant l'esquena d'un pacient.",
+    title: { ca: "Fisioteràpia", es: "Fisioterapia" },
+    lede: {
+      ca: "Explora com la fisioteràpia pot transformar la teva salut i el teu benestar, oferint solucions personalitzades per a cada condició, des de lesions fins a millores en la mobilitat i la força.",
+      es: "Explora cómo la fisioterapia puede transformar tu salud y tu bienestar, ofreciendo soluciones personalizadas para cada condición, desde lesiones hasta mejoras en la movilidad y la fuerza.",
+    },
+    cta: { ca: "Veure tractaments", es: "Ver tratamientos", href: "/tractaments/" },
+  },
+  {
+    img: "1518611012118-696072aa579a",
+    alt: "Exercici de control postural i core.",
+    title: { ca: "Fisioteràpia del sòl pelvià", es: "Fisioterapia del suelo pélvico" },
+    lede: {
+      ca: "Descobreix com cuidar el teu sòl pelvià amb els nostres serveis de fisioteràpia especialitzats. Recupera la teva salut i vitalitat amb el nostre enfocament personalitzat. Contacta'ns ara per començar el teu camí cap al benestar.",
+      es: "Descubre cómo cuidar tu suelo pélvico con nuestros servicios de fisioterapia especializados. Recupera tu salud y vitalidad con nuestro enfoque personalizado. Contáctanos ahora para empezar tu camino hacia el bienestar.",
+    },
+    cta: null,
+  },
+  {
+    img: "1717500251716-27057c48ace4",
+    alt: "Classe de pilates sobre reformer.",
+    title: { ca: "Classes de Pilates", es: "Clases de Pilates" },
+    lede: {
+      ca: "Descobreix el poder del pilates per enfortir, flexibilitzar i tonificar el teu cos. Les nostres classes estan dissenyades per millorar la teva força, control i coordinació, oferint un enfocament segur i eficaç per a un cos saludable i en forma.",
+      es: "Descubre el poder del pilates para fortalecer, flexibilizar y tonificar tu cuerpo. Nuestras clases están diseñadas para mejorar tu fuerza, control y coordinación, ofreciendo un enfoque seguro y eficaz para un cuerpo sano y en forma.",
+    },
+    cta: { ca: "Veure més", es: "Ver más", href: "/tarifes/" },
+  },
+  {
+    img: "1562771379-eafdca7a02f8",
+    alt: "Esportista en procés de readaptació física.",
+    title: { ca: "Readaptació esportiva", es: "Readaptación deportiva" },
+    lede: {
+      ca: "Descobreix com la readaptació esportiva pot ajudar-te a recuperar la teva forma física i optimitzar el teu rendiment, evitant lesions i millorant el teu exercici a l'esport.",
+      es: "Descubre cómo la readaptación deportiva puede ayudarte a recuperar tu forma física y optimizar tu rendimiento, evitando lesiones y mejorando tu ejercicio en el deporte.",
+    },
+    cta: null,
+  },
+  {
+    img: "1571019614242-c5c5dee9f50b",
+    alt: "Sessió d'entrenament personal.",
+    title: { ca: "Entrenament personal", es: "Entrenamiento personal" },
+    lede: {
+      ca: "Personalitza el teu camí cap a la salut i el benestar amb el nostre entrenament personal. Treballem amb tu per crear un pla que s'adapti als teus objectius, necessitats i estil de vida, assegurant resultats personals i significatius.",
+      es: "Personaliza tu camino hacia la salud y el bienestar con nuestro entrenamiento personal. Trabajamos contigo para crear un plan que se adapte a tus objetivos, necesidades y estilo de vida, asegurando resultados personales y significativos.",
+    },
+    cta: null,
+  },
+];
+
+const injuries = [
+  { t: { ca: "Cervicàlgia", es: "Cervicalgia" }, d: { ca: "Dolor al coll, causat per tensions o lesions als músculs i articulacions del coll. Es caracteritza per molèsties que poden empitjorar amb moviments específics.", es: "Dolor en el cuello, causado por tensiones o lesiones en los músculos y articulaciones del cuello. Se caracteriza por molestias que pueden empeorar con movimientos específicos." } },
+  { t: { ca: "Dorsàlgies", es: "Dorsalgias" }, d: { ca: "Dolor a l'esquena, que pot ser causat per diverses afeccions, com lesions musculars, hèrnies discals o problemes de la columna vertebral. Es manifesta com a molèsties que poden variar en intensitat i localització.", es: "Dolor de espalda, que puede estar causado por diversas afecciones, como lesiones musculares, hernias discales o problemas de la columna vertebral. Se manifiesta como molestias que pueden variar en intensidad y localización." } },
+  { t: { ca: "Lumbàlgies", es: "Lumbalgias" }, d: { ca: "És el dolor a la part baixa de l'esquena, sovint causat per esquinçaments als discos intervertebrals o problemes a les articulacions de la columna lumbar. Es caracteritza per molèsties que poden empitjorar amb l'estrès o la posició incorrecta.", es: "Es el dolor en la parte baja de la espalda, a menudo causado por desgarros en los discos intervertebrales o problemas en las articulaciones de la columna lumbar. Se caracteriza por molestias que pueden empeorar con el estrés o la postura incorrecta." } },
+  { t: { ca: "Radiculopaties", es: "Radiculopatías" }, d: { ca: "Dolors que afecten els nervis que surten de la columna vertebral, causant molèsties que se senten a les extremitats, com formigueig, entumiment o dolor que s'irradia des de l'esquena cap a les cames o braços.", es: "Dolores que afectan a los nervios que salen de la columna vertebral, causando molestias que se sienten en las extremidades, como hormigueo, entumecimiento o dolor que se irradia desde la espalda hacia las piernas o brazos." } },
+  { t: { ca: "Migranyes i cefalees tensionals", es: "Migrañas y cefaleas tensionales" }, d: { ca: "Mals de cap que poden ser causats per tensió muscular, canvis hormonals o problemes a la circulació sanguínia del cervell. Es caracteritzen per atacs de dolor intens a un costat del cap.", es: "Dolores de cabeza que pueden estar causados por tensión muscular, cambios hormonales o problemas en la circulación sanguínea del cerebro. Se caracterizan por ataques de dolor intenso en un lado de la cabeza." } },
+  { t: { ca: "Rigidesa articular", es: "Rigidez articular" }, d: { ca: "És la dificultat per moure una articulació a causa de la pèrdua de mobilitat. Pot ser causada per lesions, artritis o condicions que afecten la lubricació de les articulacions.", es: "Es la dificultad para mover una articulación debido a la pérdida de movilidad. Puede estar causada por lesiones, artritis o condiciones que afectan la lubricación de las articulaciones." } },
+  { t: { ca: "Tendinopaties", es: "Tendinopatías" }, d: { ca: "Són inflamacions dels tendons, que són les estructures que connecten els músculs amb els ossos. Es caracteritzen per dolor i rigidesa a les articulacions, especialment després d'activitats físiques.", es: "Son inflamaciones de los tendones, que son las estructuras que conectan los músculos con los huesos. Se caracterizan por dolor y rigidez en las articulaciones, especialmente después de actividades físicas." } },
+  { t: { ca: "Hèrnies discals", es: "Hernias discales" }, d: { ca: "Són protrusions dels discos intervertebrals fora de la seva posició normal, cosa que pot causar dolor i molèsties a l'esquena i les extremitats.", es: "Son protrusiones de los discos intervertebrales fuera de su posición normal, lo que puede causar dolor y molestias en la espalda y las extremidades." } },
+  { t: { ca: "Sobrecàrregues musculars", es: "Sobrecargas musculares" }, d: { ca: "Són lesions causades per l'ús excessiu d'un múscul o grup de músculs, cosa que pot portar a dolor, debilitat i rigidesa a la zona afectada.", es: "Son lesiones causadas por el uso excesivo de un músculo o grupo de músculos, lo que puede provocar dolor, debilidad y rigidez en la zona afectada." } },
+  { t: { ca: "Trencaments musculars", es: "Roturas musculares" }, d: { ca: "Són lesions que ocorren quan un múscul es trenca, cosa que pot causar dolor intens, immobilitat i debilitat a la zona afectada.", es: "Son lesiones que ocurren cuando un músculo se rompe, lo que puede causar dolor intenso, inmovilidad y debilidad en la zona afectada." } },
+  { t: { ca: "Limfedema", es: "Linfedema" }, d: { ca: "És un procediment que ajuda a eliminar l'excés de líquid limfàtic, cosa que pot alleujar el dolor i la inflamació en certes condicions.", es: "Es un procedimiento que ayuda a eliminar el exceso de líquido linfático, lo que puede aliviar el dolor y la inflamación en ciertas condiciones." } },
+  { t: { ca: "Punts gallet", es: "Puntos gatillo" }, d: { ca: "Són àrees sensibles als músculs que, quan es pressionen, poden causar dolor o molèsties en altres parts del cos.", es: "Son áreas sensibles en los músculos que, al presionarlas, pueden causar dolor o molestias en otras partes del cuerpo." } },
+  { t: { ca: "Disfuncions del sòl pelvià", es: "Disfunciones del suelo pélvico" }, d: { ca: "La disfunció del sòl pèlvic (SP) es refereix a una condició en què els músculs, lligaments i teixits del sòl pèlvic no funcionen correctament. L'SP és un conjunt de músculs que s'estenen des de l'os púbic fins al còccix i proporcionen suport als òrgans pèlvics, com ara la bufeta, l'úter i el recte.", es: "La disfunción del suelo pélvico (SP) se refiere a una condición en la que los músculos, ligamentos y tejidos del suelo pélvico no funcionan correctamente. El SP es un conjunto de músculos que se extienden desde el pubis hasta el cóccix y dan soporte a los órganos pélvicos, como la vejiga, el útero y el recto." } },
+  { t: { ca: "Articulació tempor-mandibular", es: "Articulación témporo-mandibular" }, d: { ca: "És l'articulació que connecta la mandíbula amb el crani, i el dolor pot ser causat per lesions, artritis o problemes en la circulació sanguínia de la zona.", es: "Es la articulación que conecta la mandíbula con el cráneo, y el dolor puede estar causado por lesiones, artritis o problemas en la circulación sanguínea de la zona." } },
+  { t: { ca: "Rehabilitació postquirúrgica", es: "Rehabilitación postquirúrgica" }, d: { ca: "És el procés de recuperació i enfortiment després d'una cirurgia dissenyat per millorar la mobilitat, la funció i el benestar del pacient.", es: "Es el proceso de recuperación y fortalecimiento después de una cirugía diseñado para mejorar la movilidad, la función y el bienestar del paciente." } },
+];
+
+const collaborators = [
+  { file: "collab-cvsc.jpg", alt: "Club Volei Sant Cugat" },
+  { file: "collab-globalmov.png", alt: "Global Movement" },
+  { file: "collab-ELIT-LOGO-ORIGINAL.png", alt: "Elit Sports Lab & Medicine" },
+  { file: "collab-moto.png", alt: "School Moto" },
+  { file: "collab-marinoss.png", alt: "Marionsss" },
+];
+
+const reviews = [
+  { name: "jordi marques", date: "24/01/2024", text: "Excel·lents professionals i persones. Tractaments amb molts bons resultats.", lang: "ca" },
+  { name: "Carlos de Viguri", date: "18/12/2023", text: "Hasta ahora el mejor centro que he probado nunca, lo tienen absolutamente todo, amabilidad, comprensión y empatía irrefutable con el paciente, lo mejor… entras con dolor y sales nuevo.", lang: "es" },
+  { name: "Victoria Corral", date: "27/11/2023", text: "Excelentes profesionales y expertos en Fisioterapia de Alto Nivel con un trato muy cercano y familiar. La rehabilitación de mi codo después de una fractura muy complicada ha sido absolutamente excelente.", lang: "es" },
+  { name: "Teresa Gallego", date: "22/11/2023", text: "Estoy muy contenta, me tratan genial. Tuve un ictus cerebral, y poco a poco me estoy recuperando. No sabría pasar sin ellas 🥰", lang: "es" },
+  { name: "Isabel De Gregorio", date: "16/11/2023", text: "Recomiendo totalmente este centro, en mi caso me atiende DIANA, gran profesional con la que enseguida empatizas. Me está tratando una tendinitis de hombro y estoy muy contenta con los resultados!!", lang: "es" },
+  { name: "ANNA CODES", date: "14/11/2023", text: "Fa més d'un any que vaig a sessions de pilates i es el que m'ha anat millor per la espatlla. Totes son grans professionals, el tracte es excepcional i es respira un ambient molt agradable i familiar.", lang: "ca" },
+  { name: "Nil Jaimejuan Gonzalez", date: "07/11/2023", text: "Fa anys que hi vaig i no puc estar més content. Sempre he tractat amb el Rodri (genial) però tots son super professionals i simpàtics. Recomano 100%.", lang: "ca" },
+  { name: "Herminia Perez", date: "03/11/2023", text: "Estic molt satisfeta amb aquest centre, son molt professionals, he tingut un problema de cervicals i ara estic molt bé. Gràcies Laia", lang: "ca" },
+  { name: "Nil Gil", date: "28/09/2023", text: "Tracte i atenció inmillorable. Fan molt bona feina i l'ambient és molt agradable. Gràcies especialment a l'equip de les Laies.", lang: "ca" },
+  { name: "Òscar de Miguel", date: "24/09/2023", text: "Atenció immillorable. Moltes gràcies i ens veiem aviat!!😊", lang: "ca" },
+];
+
+const i18n = {
+  heroTrust: { ca: "5,0/5 — 66 ressenyes a Google", es: "5,0/5 — 66 reseñas en Google" },
+  injuriesH: { ca: "Lesions més freqüents que tractem", es: "Lesiones más frecuentes que tratamos" },
+  treatH: { ca: "Tractaments", es: "Tratamientos" },
+  massatgeH: { ca: "Massatge Terapèutic", es: "Masaje Terapéutico" },
+  massatgeD: {
+    ca: "El massatge és la nostra eina terapèutica més potent per tractar tot tipus de lesions musculars tendinoses i lligamentoses. És completament personalitzat per a cada pacient: massatge descontracturant, esportiu, relaxant, drenatge limfàtic…",
+    es: "El masaje es nuestra herramienta terapéutica más potente para tratar todo tipo de lesiones musculares tendinosas y ligamentosas. Es completamente personalizado para cada paciente: masaje descontracturante, deportivo, relajante, drenaje linfático…",
+  },
+  esportivaH: { ca: "Fisioteràpia esportiva", es: "Fisioterapia deportiva" },
+  esportivaD: {
+    ca: "Servei especialitzat que s'enfoca a prevenir, tractar i rehabilitar lesions en atletes i esportistes: força, flexibilitat, mobilitat i planificació de programes d'entrenament personalitzats per reduir el risc de futures lesions.",
+    es: "Servicio especializado que se enfoca en prevenir, tratar y rehabilitar lesiones en atletas y deportistas: fuerza, flexibilidad, movilidad y planificación de programas de entrenamiento personalizados para reducir el riesgo de futuras lesiones.",
+  },
+  veureTractaments: { ca: "Veure tractaments", es: "Ver tratamientos" },
+  pilatesH: { ca: "Pilates terapèutic", es: "Pilates terapéutico" },
+  pilatesD: {
+    ca: "Descobreix el pilates amb les nostres classes d'iniciació, dissenyades per enfortir, flexibilitzar i tonificar el teu cos. La primera classe és gratuïta, sense compromís.",
+    es: "Descubre el pilates con nuestras clases de iniciación, diseñadas para fortalecer, flexibilizar y tonificar tu cuerpo. La primera clase es gratuita, sin compromiso.",
+  },
+  pilatesFree: { ca: "Primera classe de prova gratis", es: "Primera clase de prueba gratis" },
+  collabH: { ca: "Col·laboradors", es: "Colaboradores" },
+  reviewsCount: { ca: "66 ressenyes a Google", es: "66 reseñas en Google" },
+  reviewsSr: { ca: "Opinions dels pacients", es: "Opiniones de los pacientes" },
+  contactH: { ca: "Demana la teva cita.", es: "Pide tu cita." },
+  contactLede: { ca: "Escriu-nos per WhatsApp i et diem quan tenim hora disponible.", es: "Escríbenos por WhatsApp y te decimos cuándo tenemos hora disponible." },
+  contactWaBtn: { ca: "Escriu-nos per WhatsApp", es: "Escríbenos por WhatsApp" },
+  orDivider: { ca: "o", es: "o" },
+  formName: { ca: "Nom", es: "Nombre" },
+  formEmail: { ca: "Email", es: "Email" },
+  formSend: { ca: "Enviar", es: "Enviar" },
+  addrLabel: { ca: "Adreça", es: "Dirección" },
+  phoneLabel: { ca: "Telèfon", es: "Teléfono" },
+};
+---
+
+<Layout title="FisioyMés · Fisioteràpia a Sant Cugat del Vallès">
+  <a class="skip" href="#contacte" data-ca-text="Saltar a demanar cita" data-es-text="Saltar a pedir cita">Saltar a demanar cita</a>
+  <Nav transparent />
+
+  <main id="top">
+    <!-- ░░ HERO — carrusel 6 slides ░░ -->
+    <section class="hero" aria-label="Presentació">
+      {heroSlides.map((s, i) => (
+        <div class="hero__slide" class:list={{ "is-active": i === 0 }} data-hero-slide>
+          <img src={img(s.img, 2000, 68)}
+            srcset={`${img(s.img, 1100, 65)} 1100w, ${img(s.img, 1700, 68)} 1700w, ${img(s.img, 2400, 68)} 2400w`}
+            sizes="100vw" alt={s.alt} loading={i === 0 ? "eager" : "lazy"} fetchpriority={i === 0 ? "high" : "auto"} />
+          <div class="hero__veil"></div>
+        </div>
+      ))}
+
+      <div class="wrap hero__inner">
+        {heroSlides.map((s, i) => (
+          <div class="hero__body" class:list={{ "is-active": i === 0 }} aria-hidden={i === 0 ? "false" : "true"} data-hero-body>
+            {i === 0
+              ? <h1 class="hero__title" {...tr(s.title)}>{s.title.ca}</h1>
+              : <p class="hero__title" {...tr(s.title)}>{s.title.ca}</p>}
+            <p class="hero__lede" {...tr(s.lede)}>{s.lede.ca}</p>
+            <div class="hero__actions">
+              {s.cta && <a class="btn btn--solid" href={s.cta.href} {...tr({ ca: s.cta.ca, es: s.cta.es })}>{s.cta.ca}</a>}
+              <a class="btn btn--ghost" href={TEL}>664 76 25 70</a>
+            </div>
+          </div>
+        ))}
+        <p class="hero__trust"><span class="hero__stars" aria-hidden="true">★★★★★</span> <span {...tr(i18n.heroTrust)}>{i18n.heroTrust.ca}</span></p>
+      </div>
+
+      <div class="wrap hero__dots" role="tablist" aria-label="Diapositives">
+        {heroSlides.map((_, i) => <button class="hero__dot" class:list={{ "is-active": i === 0 }} type="button" data-hero-dot aria-label={`Slide ${i + 1}`}></button>)}
+      </div>
+    </section>
+
+    <!-- ░░ LESIONS MÉS FREQÜENTS (acordeó) ░░ -->
+    <section class="treat" aria-labelledby="injuries-h">
+      <div class="wrap wrap--narrow">
+        <header class="sec-head sec-head--center" data-reveal>
+          <h2 id="injuries-h" {...tr(i18n.injuriesH)}>{i18n.injuriesH.ca}</h2>
+        </header>
+        <ul class="accordion">
+          {injuries.map((it, i) => (
+            <li class="accordion__item" data-accordion-item>
+              <button class="accordion__btn" type="button" data-accordion-btn aria-expanded="false" id={`inj-btn-${i}`}>
+                <span {...tr(it.t)}>{it.t.ca}</span>
+                <span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+              <div class="accordion__panel">
+                <div>
+                  <p {...tr(it.d)}>{it.d.ca}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <span class="wavemark" aria-hidden="true"></span>
+
+    <!-- ░░ TRACTAMENTS (preview) ░░ -->
+    <section class="treat" id="tractaments" aria-labelledby="treat-h">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <h2 id="treat-h" {...tr(i18n.treatH)}>{i18n.treatH.ca}</h2>
+        </header>
+        <div class="treat__featured" data-reveal>
+          <h3 {...tr(i18n.massatgeH)}>{i18n.massatgeH.ca}</h3>
+          <p {...tr(i18n.massatgeD)}>{i18n.massatgeD.ca}</p>
+          <div style="margin-top:1.2rem"><a class="btn btn--ghost" href="/tractaments/" {...tr(i18n.veureTractaments)}>{i18n.veureTractaments.ca}</a></div>
+        </div>
+        <div class="treat__featured" data-reveal>
+          <h3 {...tr(i18n.esportivaH)}>{i18n.esportivaH.ca}</h3>
+          <p {...tr(i18n.esportivaD)}>{i18n.esportivaD.ca}</p>
+          <div style="margin-top:1.2rem"><a class="btn btn--ghost" href="/tractaments/" {...tr(i18n.veureTractaments)}>{i18n.veureTractaments.ca}</a></div>
+        </div>
+        <div class="treat__featured" data-reveal>
+          <ul class="treat__pills"><li {...tr(i18n.pilatesFree)}>{i18n.pilatesFree.ca}</li></ul>
+          <h3 style="margin-top:1rem" {...tr(i18n.pilatesH)}>{i18n.pilatesH.ca}</h3>
+          <p {...tr(i18n.pilatesD)}>{i18n.pilatesD.ca}</p>
+          <div style="margin-top:1.2rem"><a class="btn btn--solid" href={WA} target="_blank" rel="noopener">WhatsApp</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ COL·LABORADORS ░░ -->
+    <section class="collab" aria-labelledby="collab-h">
+      <div class="wrap">
+        <header class="sec-head sec-head--center" data-reveal>
+          <h2 id="collab-h" {...tr(i18n.collabH)}>{i18n.collabH.ca}</h2>
+        </header>
+        <div class="collab__grid" data-reveal>
+          {collaborators.map((c) => <img src={`/demo-fisioymes-v2/images/${c.file}`} alt={c.alt} loading="lazy" />)}
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ OPINIONS ░░ -->
+    <section class="reviews" id="opinions" aria-labelledby="reviews-h">
+      <div class="wrap">
+        <div class="reviews__stat" data-reveal>
+          <p class="reviews__score">5,0</p>
+          <div>
+            <span class="hero__stars" aria-hidden="true">★★★★★</span>
+            <p {...tr(i18n.reviewsCount)}>{i18n.reviewsCount.ca}</p>
+          </div>
+        </div>
+        <h2 id="reviews-h" class="sr-only" {...tr(i18n.reviewsSr)}>{i18n.reviewsSr.ca}</h2>
+        <ul class="reviews__list">
+          {reviews.map((r) => (
+            <li data-reveal>
+              <div class="reviews__author"><span>{r.name}</span><span>{r.date}</span></div>
+              <p class="reviews__q" lang={r.lang}>&ldquo;{r.text}&rdquo;</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <span class="wavemark" aria-hidden="true"></span>
+
+    <!-- ░░ CONTACTE ░░ -->
+    <section class="contact" id="contacte" aria-labelledby="contact-h">
+      <div class="wrap contact__grid">
+        <div class="contact__intro" data-reveal>
+          <h2 id="contact-h" {...tr(i18n.contactH)}>{i18n.contactH.ca}</h2>
+          <p class="contact__lede" {...tr(i18n.contactLede)}>{i18n.contactLede.ca}</p>
+          <a class="btn btn--solid contact__wa" href={WA} target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.7 14.2c-.2.6-1.4 1.2-2 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.6.8 2 .9 2.1.1.2.1.4 0 .6-.4.8-.8.8-.5 1.3.9 1.7 1.8 2.3 3.2 3 .2.1.4.1.5-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1l1.9.9c.2.1.4.2.5.3.1.2.1.9-.1 1.4Z"/></svg>
+            <span {...tr(i18n.contactWaBtn)}>{i18n.contactWaBtn.ca}</span>
+          </a>
+          <div class="contact__divider" role="separator"><span {...tr(i18n.orDivider)}>{i18n.orDivider.ca}</span></div>
+          <form class="contact__form" data-contact-form novalidate>
+            <div class="field">
+              <label for="cf-name" {...tr(i18n.formName)}>{i18n.formName.ca}</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="cf-email" {...tr(i18n.formEmail)}>{i18n.formEmail.ca}</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <button class="btn btn--ghost" type="submit" {...tr(i18n.formSend)}>{i18n.formSend.ca}</button>
+          </form>
+        </div>
+        <ul class="contact__info">
+          <li><span {...tr(i18n.addrLabel)}>{i18n.addrLabel.ca}</span> Carrer Xerric 4, Local 1 · Sant Cugat del Vallès</li>
+          <li><span {...tr(i18n.phoneLabel)}>{i18n.phoneLabel.ca}</span> <a href={TEL}>664 76 25 70</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <Foot />
+  <SiteScripts />
+</Layout>

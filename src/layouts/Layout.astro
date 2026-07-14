@@ -1,0 +1,34 @@
+---
+import "../styles/global.css";
+const {
+  title = "FisioyMés · Fisioteràpia a Sant Cugat del Vallès",
+  description = "Fisioteràpia general, esportiva, massatge terapèutic i pilates a Sant Cugat del Vallès. 5,0★ sobre 66 ressenyes. Demana cita per WhatsApp.",
+} = Astro.props;
+const favicon = "data:image/svg+xml," + encodeURIComponent(
+  `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23001121'/><path d='M4 20 L9 12 L13 24 L18 8 L22 19 L27 16' fill='none' stroke='%234880aa' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>`
+);
+---
+
+<!doctype html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#122436" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href={favicon} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Foot from "../components/Foot.astro";
+import SiteScripts from "../components/SiteScripts.astro";
+import { tr } from "../lib/site";
+
+const i18n = {
+  h: { ca: "Avís Legal", es: "Aviso Legal" },
+  s1h: { ca: "1. Dades identificatives", es: "1. Datos identificativos" },
+  s1p: {
+    ca: "En compliment del deure d'informació recollit a l'article 10 de la Llei 34/2002, d'11 de juliol, de Serveis de la Societat de la Informació i de Comerç Electrònic (LSSI-CE), es faciliten a continuació les dades identificatives de l'empresa: Denominació social: FISIOYMES READEP SLP. Nom comercial: FISIOYMES. NIF: B42815951. Domicili social: Carrer Xerric 4, 08172 Sant Cugat del Vallès (Barcelona). Telèfon: 637765866. Correu electrònic: info@fisioymes.com. Domini: fisioymes.com.",
+    es: "En cumplimiento del deber de información recogido en el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se facilitan a continuación los datos identificativos de la empresa: Denominación social: FISIOYMES READEP SLP. Nombre comercial: FISIOYMES. NIF: B42815951. Domicilio social: Carrer Xerric 4, 08172 Sant Cugat del Vallès (Barcelona). Teléfono: 637765866. Correo electrónico: info@fisioymes.com. Dominio: fisioymes.com.",
+  },
+  s2h: { ca: "2. Objecte i acceptació", es: "2. Objeto y aceptación" },
+  s2p: {
+    ca: "El present avís legal regula l'ús del lloc web fisioymes.com que FISIOYMES READEP SLP posa a disposició dels usuaris. La navegació pel lloc web atribueix la condició d'usuari i implica l'acceptació plena de totes les condicions incloses en aquest avís legal. L'usuari es compromet a fer un ús adequat dels continguts i serveis que FISIOYMES ofereix a través del seu lloc web.",
+    es: "El presente aviso legal regula el uso del sitio web fisioymes.com que FISIOYMES READEP SLP pone a disposición de los usuarios. La navegación por el sitio web atribuye la condición de usuario e implica la aceptación plena de todas las condiciones incluidas en este aviso legal. El usuario se compromete a hacer un uso adecuado de los contenidos y servicios que FISIOYMES ofrece a través de su sitio web.",
+  },
+  s3h: { ca: "3. Propietat intel·lectual i industrial", es: "3. Propiedad intelectual e industrial" },
+  s3p: {
+    ca: "Tots els continguts del lloc web, incloent-hi textos, fotografies, gràfics, imatges, icones, tecnologia, programari, així com el seu disseny gràfic i codis font, constitueixen una obra la propietat de la qual pertany a FISIOYMES READEP SLP, sense que puguin entendre's cedits cap dels drets d'explotació sobre els mateixos a l'usuari. Queda prohibida la reproducció, distribució o transformació d'aquests continguts sense autorització expressa.",
+    es: "Todos los contenidos del sitio web, incluyendo a título enunciativo textos, fotografías, gráficos, imágenes, iconos, tecnología, software, así como su diseño gráfico y códigos fuente, constituyen una obra cuya propiedad pertenece a FISIOYMES READEP SLP, sin que puedan entenderse cedidos ninguno de los derechos de explotación sobre los mismos al usuario. Queda prohibida la reproducción, distribución o transformación de estos contenidos sin autorización expresa.",
+  },
+  s4h: { ca: "4. Exempció de responsabilitat", es: "4. Exención de responsabilidad" },
+  s4p: {
+    ca: "FISIOYMES no es fa responsable dels danys i perjudicis que es puguin derivar d'interferències, omissions, interrupcions, virus informàtics, avaries telefòniques o desconnexions en el funcionament operatiu del sistema electrònic, motivades per causes alienes a FISIOYMES. Tampoc es fa responsable dels continguts d'aquelles pàgines web a les quals l'usuari pugui accedir mitjançant enllaços des del lloc web.",
+    es: "FISIOYMES no se hace responsable de los daños y perjuicios que se puedan derivar de interferencias, omisiones, interrupciones, virus informáticos, averías telefónicas o desconexiones en el funcionamiento operativo del sistema electrónico, motivadas por causas ajenas a FISIOYMES. Tampoco se hace responsable de los contenidos de aquellas páginas web a las que el usuario pueda acceder mediante enlaces desde el sitio web.",
+  },
+  s5h: { ca: "5. Ús de cookies", es: "5. Uso de cookies" },
+  s5p: {
+    ca: "Aquest lloc web utilitza cookies pròpies i de tercers per millorar l'experiència de navegació. Podeu consultar tota la informació sobre el seu ús a la nostra Política de Cookies.",
+    es: "Este sitio web utiliza cookies propias y de terceros para mejorar la experiencia de navegación. Puede consultar toda la información sobre su uso en nuestra Política de Cookies.",
+  },
+  s6h: { ca: "6. Política d'enllaços", es: "6. Política de enlaces" },
+  s6p: {
+    ca: "Des del lloc web es pot redirigir a continguts de tercers llocs web. Atès que FISIOYMES no pot controlar sempre els continguts introduïts per tercers en els seus llocs web, no assumeix cap tipus de responsabilitat respecte a aquests continguts. En cas que algun usuari consideri que un enllaç hauria de ser eliminat, pot posar-se en contacte a través de l'email indicat a les dades identificatives.",
+    es: "Desde el sitio web se puede redirigir a contenidos de terceros sitios web. Dado que FISIOYMES no puede controlar siempre los contenidos introducidos por terceros en sus sitios web, no asume ningún tipo de responsabilidad respecto a dichos contenidos. En caso de que algún usuario considere que un enlace debería ser eliminado, puede ponerse en contacto a través del email indicado en los datos identificativos.",
+  },
+  s7h: { ca: "7. Legislació aplicable i jurisdicció", es: "7. Legislación aplicable y jurisdicción" },
+  s7p: {
+    ca: "Les presents condicions es regeixen per la legislació espanyola. Per a la resolució de qualsevol controvèrsia que pogués derivar-se de l'accés o ús d'aquest lloc web, FISIOYMES i l'usuari acorden sotmetre's als jutjats i tribunals del domicili de l'usuari.",
+    es: "Las presentes condiciones se rigen por la legislación española. Para la resolución de cualquier controversia que pudiera derivarse del acceso o uso de este sitio web, FISIOYMES y el usuario acuerdan someterse a los juzgados y tribunales del domicilio del usuario.",
+  },
+};
+---
+
+<Layout title="Avís Legal · FisioyMés">
+  <Nav />
+  <main>
+    <section class="legal">
+      <div class="wrap wrap--narrow">
+        <h1 {...tr(i18n.h)}>{i18n.h.ca}</h1>
+        <h2 {...tr(i18n.s1h)}>{i18n.s1h.ca}</h2>
+        <p {...tr(i18n.s1p)}>{i18n.s1p.ca}</p>
+        <h2 {...tr(i18n.s2h)}>{i18n.s2h.ca}</h2>
+        <p {...tr(i18n.s2p)}>{i18n.s2p.ca}</p>
+        <h2 {...tr(i18n.s3h)}>{i18n.s3h.ca}</h2>
+        <p {...tr(i18n.s3p)}>{i18n.s3p.ca}</p>
+        <h2 {...tr(i18n.s4h)}>{i18n.s4h.ca}</h2>
+        <p {...tr(i18n.s4p)}>{i18n.s4p.ca}</p>
+        <h2 {...tr(i18n.s5h)}>{i18n.s5h.ca}</h2>
+        <p {...tr(i18n.s5p)}>{i18n.s5p.ca}</p>
+        <h2 {...tr(i18n.s6h)}>{i18n.s6h.ca}</h2>
+        <p {...tr(i18n.s6p)}>{i18n.s6p.ca}</p>
+        <h2 {...tr(i18n.s7h)}>{i18n.s7h.ca}</h2>
+        <p {...tr(i18n.s7p)}>{i18n.s7p.ca}</p>
+      </div>
+    </section>
+  </main>
+  <Foot />
+  <SiteScripts />
+</Layout>

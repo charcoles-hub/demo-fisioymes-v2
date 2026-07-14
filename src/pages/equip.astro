@@ -1,0 +1,137 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Foot from "../components/Foot.astro";
+import SiteScripts from "../components/SiteScripts.astro";
+import { tr } from "../lib/site";
+
+const team = [
+  {
+    name: "Diana Llongueras",
+    role: {
+      ca: "Directora de Fisioymés · Fisioterapeuta col. 12.476 i readaptadora esportiva",
+      es: "Directora de Fisioymés · Fisioterapeuta col. 12.476 y readaptadora deportiva",
+    },
+    creds: [
+      { ca: "Màster oficial de fisioteràpia de l'esport i readaptació a l'activitat física (Escoles Universitàries Gimbernat i Tomàs Cerdà)", es: "Máster oficial de fisioterapia del deporte y readaptación a la actividad física (Escuelas Universitarias Gimbernat y Tomás Cerdà)" },
+      { ca: "Grau de Fisioteràpia per l'Escola Universitària Gimbernat, adscrita a la UAB", es: "Grado de Fisioterapia por la Escuela Universitaria Gimbernat, adscrita a la UAB" },
+      { ca: "Nº col·legiada: 12.476", es: "Nº colegiada: 12.476" },
+      { ca: "Formació en punció seca i tractament conservador i invasiu de la Síndrome de dolor miofascial (Travell i Simons)", es: "Formación en punción seca y tratamiento conservador e invasivo del Síndrome de dolor miofascial (Travell y Simons)" },
+      { ca: "Curs de Fibròlisi Instrumental Miofascial", es: "Curso de Fibrólisis Instrumental Miofascial" },
+      { ca: "Menció en fisioteràpia neurològica (Mètode Bobath i Perfetti)", es: "Mención en fisioterapia neurológica (Método Bobath y Perfetti)" },
+      { ca: "Formació en Fisioestètica (Tecarteràpia Winback Academy Espanya)", es: "Formación en Fisioestética (Tecarterapia Winback Academy España)" },
+      { ca: "Formació en teràpia de drenatge limfàtic manual", es: "Formación en terapia de drenaje linfático manual" },
+      { ca: "Entrenament personal i funcional", es: "Entrenamiento personal y funcional" },
+      { ca: "Fisioterapeuta del Club Volei Sant Cugat", es: "Fisioterapeuta del Club Volei Sant Cugat" },
+      { ca: "Curs d'ecografia musculoesquelètica", es: "Curso de ecografía musculoesquelética" },
+    ],
+  },
+  {
+    name: "Rodrigo Evangelisti",
+    role: { ca: "Director i fundador de Fisioymés · Fisioterapeuta", es: "Director y fundador de Fisioymés · Fisioterapeuta" },
+    creds: [
+      { ca: "Actualment fisioterapeuta del primer equip de FC Dinamo de Bucarest (Rumania)", es: "Actualmente fisioterapeuta del primer equipo del FC Dinamo de Bucarest (Rumanía)" },
+      { ca: "Llicenciat en Fisioteràpia. Nº col·legiat: 12.352", es: "Licenciado en Fisioterapia. Nº colegiado: 12.352" },
+      { ca: "Fisioterapeuta del FC Atlético de Madrid femenino", es: "Fisioterapeuta del FC Atlético de Madrid femenino" },
+      { ca: "Curs d'ecografia musculoesquelètica", es: "Curso de ecografía musculoesquelética" },
+      { ca: "Curs de preparació física esportiva", es: "Curso de preparación física deportiva" },
+      { ca: "EPTE — Electròlisi Percutània Terapèutica", es: "EPTE — Electrólisis Percutánea Terapéutica" },
+      { ca: "Curs de punció seca", es: "Curso de punción seca" },
+    ],
+  },
+  {
+    name: "Laia Teixidó",
+    role: { ca: "Fisioterapeuta especialitzada en sòl pèlvic", es: "Fisioterapeuta especializada en suelo pélvico" },
+    creds: [
+      { ca: "Formació en fisioteràpia uroginecològica: postpart i disfuncions del sòl pèlvic, així com a Gimnàstica Abdominal Hipopressiva (GAH 1 i 2) i peripart", es: "Formación en fisioterapia uroginecológica: postparto y disfunciones del suelo pélvico, así como en Gimnasia Abdominal Hipopresiva (GAH 1 y 2) y periparto" },
+      { ca: "Grau de Fisioteràpia per l'Escola Universitària Gimbernat, adscrita a la UAB. Nº col·legiada: 11.959", es: "Grado de Fisioterapia por la Escuela Universitaria Gimbernat, adscrita a la UAB. Nº colegiada: 11.959" },
+      { ca: "Especialitzada en Rehabilitació de sòl pèlvic i obstetrícia", es: "Especializada en Rehabilitación de suelo pélvico y obstetricia" },
+      { ca: "Formada a Gimnàstica abdominal hipopressiva", es: "Formada en Gimnasia abdominal hipopresiva" },
+      { ca: "Especialista en grups de gimnàstica terapèutica i reeducació postural", es: "Especialista en grupos de gimnasia terapéutica y reeducación postural" },
+      { ca: "Curs Activitat física i exercici terapèutic a l'embaràs", es: "Curso Actividad física y ejercicio terapéutico en el embarazo" },
+      { ca: "Formació en teràpia de drenatge limfàtic manual", es: "Formación en terapia de drenaje linfático manual" },
+      { ca: "Formada al Mètode Pilates sòl", es: "Formada en el Método Pilates suelo" },
+      { ca: "Curs de punció seca: Fisioteràpia conservadora i invasiva de la síndrome de dolor miofascial (Travell i Simons)", es: "Curso de punción seca: Fisioterapia conservadora e invasiva del síndrome de dolor miofascial (Travell y Simons)" },
+      { ca: "Curs d'ecografia musculoesquelètica", es: "Curso de ecografía musculoesquelética" },
+    ],
+  },
+  {
+    name: "Laia Costa",
+    role: { ca: "Fisioterapeuta esportiva", es: "Fisioterapeuta deportiva" },
+    creds: [
+      { ca: "Grau de Fisioteràpia per l'Escola Universitària Gimbernat, adscrita a la UAB. Nº col·legiada: 13561", es: "Grado de Fisioterapia por la Escuela Universitaria Gimbernat, adscrita a la UAB. Nº colegiada: 13561" },
+      { ca: "Menció en aparell locomotor", es: "Mención en aparato locomotor" },
+      { ca: "Curs de punció seca: Fisioteràpia conservadora i invasiva de la síndrome de dolor miofascial (Travell i Simons)", es: "Curso de punción seca: Fisioterapia conservadora e invasiva del síndrome de dolor miofascial (Travell y Simons)" },
+      { ca: "Formació en tècniques manipulatives i miotensives de columna, pelvis, extremitat superior i inferior al CAR Sant Cugat", es: "Formación en técnicas manipulativas y miotensivas de columna, pelvis, extremidad superior e inferior en el CAR Sant Cugat" },
+      { ca: "Formació en Nutrició aplicada a Patologies Múscul-Esquelètiques", es: "Formación en Nutrición aplicada a Patologías Músculo-Esqueléticas" },
+      { ca: "Experiència en Fisioteràpia i Readaptació esportiva a peu de camp", es: "Experiencia en Fisioterapia y Readaptación deportiva a pie de campo" },
+      { ca: "Curs d'ecografia musculoesquelètica", es: "Curso de ecografía musculoesquelética" },
+    ],
+  },
+  {
+    name: "Raúl Serra",
+    role: { ca: "Especialista en teràpia manual", es: "Especialista en terapia manual" },
+    creds: [
+      { ca: "Diplomat en Fisioteràpia l'any 2002 a les EEUU Gimbernat (adscrita UAB)", es: "Diplomado en Fisioterapia en el año 2002 en las EEUU Gimbernat (adscrita UAB)" },
+      { ca: "Col·legiat núm. 4212 pel CFC", es: "Colegiado núm. 4212 por el CFC" },
+      { ca: "Més de 20 anys d'experiència en el camp de la fisioteràpia", es: "Más de 20 años de experiencia en el campo de la fisioterapia" },
+      { ca: "Curs de punció seca i tractament del dolor miofascial (Fisiofocus)", es: "Curso de punción seca y tratamiento del dolor miofascial (Fisiofocus)" },
+      { ca: "Curs de tractament de disfuncions cráneo-mandibulars i ATM", es: "Curso de tratamiento de disfunciones cráneo-mandibulares y ATM" },
+      { ca: "Experiència en tractaments amb ones de xoc", es: "Experiencia en tratamientos con ondas de choque" },
+      { ca: "Experiència en fisioteràpia i massatge esportius", es: "Experiencia en fisioterapia y masaje deportivos" },
+      { ca: "Àmplia experiència en tractaments en teràpia manual i miofascial", es: "Amplia experiencia en tratamientos en terapia manual y miofascial" },
+    ],
+  },
+  {
+    name: "Dylan Koelma",
+    role: { ca: "Fisioterapeuta esportiu", es: "Fisioterapeuta deportivo" },
+    creds: [
+      { ca: "Postgrau en Expert en el Diagnòstic diferencial (EUNEIZ), 2025", es: "Postgrado en Experto en el Diagnóstico diferencial (EUNEIZ), 2025" },
+      { ca: "Grau de Fisioteràpia per l'Escola Universitària Gimbernat, adscrita a la UAB. Nº col·legiat: 17.166", es: "Grado de Fisioterapia por la Escuela Universitaria Gimbernat, adscrita a la UAB. Nº colegiado: 17.166" },
+      { ca: "Formació en Indiba Activ, 2024", es: "Formación en Indiba Activ, 2024" },
+      { ca: "Curs de Punció Seca", es: "Curso de Punción Seca" },
+      { ca: "Expert en la fisioteràpia traumatològica i esportiva", es: "Experto en la fisioterapia traumatológica y deportiva" },
+      { ca: "Àrea d'especialització en l'exercici terapèutic", es: "Área de especialización en el ejercicio terapéutico" },
+      { ca: "Curs de neuromodulació en patologia clínica (Antonio Merino)", es: "Curso de neuromodulación en patología clínica (Antonio Merino)" },
+    ],
+  },
+];
+
+const i18n = {
+  h1: { ca: "Equip", es: "Equipo" },
+  intro: {
+    ca: "A Fisioymés treballem en equip per oferir una atenció de fisioteràpia personalitzada i de qualitat. Compartim coneixement, experiència clínica i diferents enfocaments terapèutics per analitzar cada cas des d'una perspectiva global. Aquesta col·laboració entre professionals ens permet dissenyar plans de tractament adaptats a les necessitats de cada pacient, amb l'objectiu de millorar la seva salut, recuperar la funcionalitat i garantir el seu benestar.",
+    es: "En Fisioymés trabajamos en equipo para ofrecer una atención de fisioterapia personalizada y de calidad. Compartimos conocimiento, experiencia clínica y diferentes enfoques terapéuticos para analizar cada caso desde una perspectiva global. Esta colaboración entre profesionales nos permite diseñar planes de tratamiento adaptados a las necesidades de cada paciente, con el objetivo de mejorar su salud, recuperar la funcionalidad y garantizar su bienestar.",
+  },
+};
+---
+
+<Layout title="Equip · FisioyMés">
+  <Nav />
+
+  <main id="top">
+    <section class="team" aria-labelledby="team-h">
+      <div class="wrap">
+        <header class="sec-head sec-head--center" data-reveal>
+          <h1 id="team-h" {...tr(i18n.h1)}>{i18n.h1.ca}</h1>
+          <p {...tr(i18n.intro)}>{i18n.intro.ca}</p>
+        </header>
+        <div class="team__grid">
+          {team.map((p) => (
+            <article class="team__card" data-reveal>
+              <div class="team__avatar" aria-hidden="true">{p.name.charAt(0)}</div>
+              <h3>{p.name}</h3>
+              <p class="team__role" {...tr(p.role)}>{p.role.ca}</p>
+              <ul>
+                {p.creds.map((c) => <li {...tr(c)}>{c.ca}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Foot />
+  <SiteScripts />
+</Layout>

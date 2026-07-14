@@ -1,0 +1,142 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Foot from "../components/Foot.astro";
+import SiteScripts from "../components/SiteScripts.astro";
+import { tr } from "../lib/site";
+
+const treatments = [
+  {
+    id: "massatge",
+    h: { ca: "Massatge Terapèutic", es: "Masaje Terapéutico" },
+    d: {
+      ca: "El massatge es la nostra eina terapèutica més potent per tractar tot tipus de lesions musculars tendinoses i lligamentoses. Es completament personalitzat per a cada pacient i sol ser molt eficaç per obtenir els resultats esperats. A Fisioymés realitzem diferents tipus de massatges en funció del que volem obtenir com el massatge descontracturant, el massatge Esportiu, massatge relaxant, drenatge limfàtic…",
+      es: "El masaje es nuestra herramienta terapéutica más potente para tratar todo tipo de lesiones musculares, tendinosas y ligamentosas. Es completamente personalizado para cada paciente y suele ser muy eficaz para obtener los resultados esperados. En Fisioymés realizamos diferentes tipos de masajes en función de lo que queremos conseguir, como el masaje descontracturante, el masaje deportivo, masaje relajante, drenaje linfático…",
+    },
+  },
+  {
+    id: "radiofrequencia",
+    h: { ca: "Radiofreqüència / Tecarteràpia", es: "Radiofrecuencia / Tecarterapia" },
+    d: {
+      ca: "La radiofreqüència, també coneguda com a diatèrmia o tecarteràpia, és una tecnologia terapèutica que utilitza corrents d'alta freqüència per generar un augment controlat de la temperatura en els teixits profunds. Aquest efecte biofísic estimula la microcirculació, incrementa l'oxigenació cel·lular i afavoreix els processos metabòlics implicats en la reparació tissular. El seu ús és especialment indicat en lesions, tant en fases agudes com cròniques.",
+      es: "La radiofrecuencia, también conocida como diatermia o tecarterapia, es una tecnología terapéutica que utiliza corrientes de alta frecuencia para generar un aumento controlado de la temperatura en los tejidos profundos. Este efecto biofísico estimula la microcirculación, incrementa la oxigenación celular y favorece los procesos metabólicos implicados en la reparación tisular. Su uso está especialmente indicado en lesiones, tanto en fases agudas como crónicas.",
+    },
+  },
+  {
+    id: "teraparia-manual",
+    h: { ca: "Teràpia Manual", es: "Terapia Manual" },
+    d: {
+      ca: "La teràpia manual engloba un conjunt de tècniques especialitzades aplicades amb les mans del fisioterapeuta amb l'objectiu de valorar, tractar i prevenir disfuncions del sistema musculoesquelètic. Mitjançant mobilitzacions articulars, manipulacions, tècniques miofascials i treball específic sobre el teixit muscular, es busca modular el dolor, normalitzar el to muscular, millorar la mobilitat i optimitzar la funció del teixit. Aquest abordatge permet actuar de manera precisa sobre lesions concretes, afavorint la recuperació funcional, la circulació i la qualitat del moviment.",
+      es: "La terapia manual engloba un conjunto de técnicas especializadas aplicadas con las manos del fisioterapeuta con el objetivo de valorar, tratar y prevenir disfunciones del sistema musculoesquelético. Mediante movilizaciones articulares, manipulaciones, técnicas miofasciales y trabajo específico sobre el tejido muscular, se busca modular el dolor, normalizar el tono muscular, mejorar la movilidad y optimizar la función del tejido. Este abordaje permite actuar de manera precisa sobre lesiones concretas, favoreciendo la recuperación funcional, la circulación y la calidad del movimiento.",
+    },
+  },
+  {
+    id: "sol-pelvic",
+    h: { ca: "Tractament del sòl pèlvic", es: "Tratamiento del suelo pélvico" },
+    d: {
+      ca: "El tractament durant l'embaràs i el postpart està orientat a cuidar el cos de la dona en una etapa de grans canvis. A través de tècniques de fisioteràpia especialitzada, ajudem a alleujar molèsties com el mal d'esquena, la tensió pèlvica o la sobrecàrrega muscular, i preparem el cos per al part. Després del naixement, treballem la recuperació del sòl pelvià i de la faixa abdominal per afavorir una recuperació segura, millorar el benestar i facilitar el retorn progressiu a l'activitat diària.",
+      es: "El tratamiento durante el embarazo y el postparto está orientado a cuidar el cuerpo de la mujer en una etapa de grandes cambios. A través de técnicas de fisioterapia especializada, ayudamos a aliviar molestias como el dolor de espalda, la tensión pélvica o la sobrecarga muscular, y preparamos el cuerpo para el parto. Después del nacimiento, trabajamos la recuperación del suelo pélvico y de la faja abdominal para favorecer una recuperación segura, mejorar el bienestar y facilitar el retorno progresivo a la actividad diaria.",
+    },
+  },
+  {
+    id: "ones-de-xoc",
+    h: { ca: "Ones de xoc", es: "Ondas de choque" },
+    d: {
+      ca: "Les ones de xoc són polsos acústics d'alta energia que s'apliquen directament sobre la zona lesionada. Aquestes ones estimulen la circulació sanguínia, promouen la regeneració cel·lular i ajuden a descompondre els dipòsits de calci en tendons i lligaments, accelerant el procés de curació.",
+      es: "Las ondas de choque son pulsos acústicos de alta energía que se aplican directamente sobre la zona lesionada. Estas ondas estimulan la circulación sanguínea, promueven la regeneración celular y ayudan a descomponer los depósitos de calcio en tendones y ligamentos, acelerando el proceso de curación.",
+    },
+    indicacions: [
+      { ca: "Tendinitis del manegot dels rotadors", es: "Tendinitis del manguito de los rotadores" },
+      { ca: "Tendinitis aquíl·lia", es: "Tendinitis aquílea" },
+      { ca: "Tendinitis rotuliana (genoll del saltador)", es: "Tendinitis rotuliana (rodilla del saltador)" },
+      { ca: "Epicondilitis (colze de tennista)", es: "Epicondilitis (codo de tenista)" },
+      { ca: "Fascitis plantar", es: "Fascitis plantar" },
+      { ca: "Esperó calcani", es: "Espolón calcáneo" },
+      { ca: "Contractures musculars", es: "Contracturas musculares" },
+      { ca: "Síndrome de dolor miofascial", es: "Síndrome de dolor miofascial" },
+    ],
+  },
+  {
+    id: "magnetoterapia",
+    h: { ca: "Magnetoteràpia", es: "Magnetoterapia" },
+    d: {
+      ca: "També anomenada teràpia super inductiva. Aquesta tecnologia es basa en un camp electromagnètic d'alta intensitat. Els principals efectes terapèutics són alleujar el dolor, la recuperació accelerada de fractures i edemes òssies, relaxació i estimulació de musculatura i regeneració de teixit. A més, ens permet fer un efecte neuromodulador sobre les diferents lesions.",
+      es: "También llamada terapia super inductiva. Esta tecnología se basa en un campo electromagnético de alta intensidad. Los principales efectos terapéuticos son aliviar el dolor, la recuperación acelerada de fracturas y edemas óseos, relajación y estimulación de la musculatura y regeneración de tejido. Además, nos permite realizar un efecto neuromodulador sobre las diferentes lesiones.",
+    },
+  },
+  {
+    id: "puncio-seca",
+    h: { ca: "Punció Seca", es: "Punción Seca" },
+    d: {
+      ca: "Aquesta tècnica té un resultat molt ràpid i efectiu en problemes musculars, ja que té un efecte sobre la placa motora del múscul, desencadenant una reacció nerviosa reflecteix que farà baixar el to muscular i millorar les malalties del pacient. També es fa servir per treballar punts gallets musculars, que poden donar dolors referits a zones veïnes.",
+      es: "Esta técnica tiene un resultado muy rápido y efectivo en problemas musculares, ya que actúa sobre la placa motora del músculo, desencadenando una reacción nerviosa refleja que hará bajar el tono muscular y mejorar las dolencias del paciente. También se utiliza para trabajar puntos gatillo musculares, que pueden dar dolores referidos a zonas vecinas.",
+    },
+  },
+  {
+    id: "epte",
+    h: { ca: "Electròlisi Percutània (EPTE)", es: "Electrólisis Percutánea (EPTE)" },
+    d: {
+      ca: "L'epte (L'electròlisi percutània terapèutica EPTE®) és la tècnica revolucionària per al tractament de tendinopaties. Usa microcorrents perquè l'aplicació sigui pràcticament indolora per al pacient. EPTE® és una tècnica EFECTIVA, RÀPIDA a la seva aplicació, i que escurça els temps de recuperació del pacient. Consisteix en l'aplicació de microcorrents a través d'una agulla d'acupuntura. D'aquesta manera, el fisioterapeuta accedeix al teixit tou danyat i indueix així la seva autorecuperació.",
+      es: "El EPTE (la electrólisis percutánea terapéutica EPTE®) es la técnica revolucionaria para el tratamiento de tendinopatías. Usa microcorrientes para que la aplicación sea prácticamente indolora para el paciente. EPTE® es una técnica EFECTIVA, RÁPIDA en su aplicación, y que acorta los tiempos de recuperación del paciente. Consiste en la aplicación de microcorrientes a través de una aguja de acupuntura. De esta manera, el fisioterapeuta accede al tejido blando dañado e induce así su autorrecuperación.",
+    },
+  },
+  {
+    id: "ecografia",
+    h: { ca: "Ecografia", es: "Ecografía" },
+    d: {
+      ca: "L'ecografia musculoesquelètica és una eina avançada de diagnòstic que permet visualitzar en temps real l'estat dels músculs, tendons, lligaments i altres teixits tous. Aquesta tecnologia ens ajuda a identificar amb precisió l'origen de la lesió i a valorar l'abast real del problema, facilitant així un diagnòstic més precís. A més, l'ecografia ens permet fer un seguiment de l'evolució de la lesió al llarg del tractament i ajustar la teràpia segons la resposta del pacient. També s'utilitza per guiar amb més precisió determinades tècniques invasives, millorant la seguretat i l'eficàcia del tractament.",
+      es: "La ecografía musculoesquelética es una herramienta avanzada de diagnóstico que permite visualizar en tiempo real el estado de los músculos, tendones, ligamentos y otros tejidos blandos. Esta tecnología nos ayuda a identificar con precisión el origen de la lesión y a valorar el alcance real del problema, facilitando así un diagnóstico más preciso. Además, la ecografía nos permite hacer un seguimiento de la evolución de la lesión a lo largo del tratamiento y ajustar la terapia según la respuesta del paciente. También se utiliza para guiar con más precisión determinadas técnicas invasivas, mejorando la seguridad y la eficacia del tratamiento.",
+    },
+  },
+  {
+    id: "hipopressius",
+    h: { ca: "Hipopressius", es: "Hipopresivos" },
+    d: {
+      ca: "Els exercicis hipopressius són una tècnica d'entrenament que se centra en l'activació i l'enfortiment dels músculs del core i del sòl pelvià. Aquests exercicis impliquen la realització de postures específiques i la respiració diafragmàtica per crear una pressió negativa a la cavitat abdominal. S'utilitzen per millorar la postura, reduir la cintura, prevenir i tractar la incontinència urinària i millorar el rendiment esportiu.",
+      es: "Los ejercicios hipopresivos son una técnica de entrenamiento que se centra en la activación y el fortalecimiento de los músculos del core y del suelo pélvico. Estos ejercicios implican la realización de posturas específicas y la respiración diafragmática para crear una presión negativa en la cavidad abdominal. Se utilizan para mejorar la postura, reducir la cintura, prevenir y tratar la incontinencia urinaria y mejorar el rendimiento deportivo.",
+    },
+  },
+  {
+    id: "atm",
+    h: { ca: "Tractament articulació temporo-mandibular (ATM)", es: "Tratamiento de la articulación témporo-mandibular (ATM)" },
+    d: {
+      ca: "És l'articulació que uneix la mandíbula amb el nostre crani a la fossa temporal. La patologia està causada per múltiples focus, que poden anar des de traumatismes aguts fins a problemes d'estrès, passant per alteracions posturals, bruxisme, etc. El seu tractament, per tant, també ha de ser multifactorial i ha d'englobar diversos professionals, però els fisioterapeutes i osteòpates podem focalitzar el nostre tractament en aquesta articulació a través de treball postural (columna cervical i dorsal), teràpia manual i estiraments (músculs, lligaments, mobilitzacions…).",
+      es: "Es la articulación que une la mandíbula con nuestro cráneo en la fosa temporal. La patología está causada por múltiples focos, que pueden ir desde traumatismos agudos hasta problemas de estrés, pasando por alteraciones posturales, bruxismo, etc. Su tratamiento, por tanto, también debe ser multifactorial y debe englobar a diversos profesionales, pero los fisioterapeutas y osteópatas podemos focalizar nuestro tratamiento en esta articulación a través de trabajo postural (columna cervical y dorsal), terapia manual y estiramientos (músculos, ligamentos, movilizaciones…).",
+    },
+  },
+];
+
+const i18n = {
+  h1: { ca: "Tractaments", es: "Tratamientos" },
+};
+---
+
+<Layout title="Tractaments · FisioyMés">
+  <Nav />
+
+  <main id="top">
+    <section class="treat" aria-labelledby="treat-h1">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <h1 id="treat-h1" {...tr(i18n.h1)}>{i18n.h1.ca}</h1>
+        </header>
+        <ul class="treat__list">
+          {treatments.map((t) => (
+            <li id={t.id} data-reveal>
+              <h3 {...tr(t.h)}>{t.h.ca}</h3>
+              <p {...tr(t.d)}>{t.d.ca}</p>
+              {t.indicacions && (
+                <ul>
+                  {t.indicacions.map((it) => <li {...tr(it)}>{it.ca}</li>)}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <Foot />
+  <SiteScripts />
+</Layout>

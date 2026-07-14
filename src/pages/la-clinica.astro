@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Foot from "../components/Foot.astro";
+import SiteScripts from "../components/SiteScripts.astro";
+import { tr } from "../lib/site";
+
+const facilities = [
+  { ca: "Sala de Pilates", es: "Sala de Pilates" },
+  { ca: "Gimnàs", es: "Gimnasio" },
+  { ca: "Sales de tractament individual", es: "Salas de tratamiento individual" },
+];
+
+const i18n = {
+  h: { ca: "La Clínica", es: "La Clínica" },
+  text: {
+    ca: "A Fisioymés, entenem la importància de fusionar coneixements acumulats durant una dècada amb una perspectiva innovadora i actualitzada en el camp de la fisioteràpia. La nostra ubicació a Sant Cugat del Vallès es converteix en l'epicentre del nostre compromís, on cada pacient rep atenció individualitzada per assolir una recuperació eficient i efectiva.",
+    es: "En Fisioymés, entendemos la importancia de fusionar el conocimiento acumulado durante una década con una perspectiva innovadora y actualizada en el campo de la fisioterapia. Nuestra ubicación en Sant Cugat del Vallès se convierte en el epicentro de nuestro compromiso, donde cada paciente recibe atención individualizada para lograr una recuperación eficiente y efectiva.",
+  },
+  text2: {
+    ca: "Ens enorgulleix oferir un ambient acollidor i professional, recolzat per un equip de fisioterapeutes altament capacitats i apassionats per la seva feina. Cada tractament s'adapta amb cura a les necessitats específiques de cada pacient.",
+    es: "Nos enorgullece ofrecer un ambiente acogedor y profesional, respaldado por un equipo de fisioterapeutas altamente capacitados y apasionados por su trabajo. Cada tratamiento se adapta con cuidado a las necesidades específicas de cada paciente.",
+  },
+};
+---
+
+<Layout title="La Clínica · FisioyMés">
+  <Nav />
+  <main>
+    <section class="clinic" aria-labelledby="clinic-h">
+      <div class="wrap wrap--narrow" data-reveal>
+        <h1 id="clinic-h" {...tr(i18n.h)}>{i18n.h.ca}</h1>
+        <p class="clinic__text" {...tr(i18n.text)}>{i18n.text.ca}</p>
+        <p class="clinic__text" style="margin-top:1rem" {...tr(i18n.text2)}>{i18n.text2.ca}</p>
+        <ul class="treat__pills clinic__facilities">
+          {facilities.map((f) => <li {...tr(f)}>{f.ca}</li>)}
+        </ul>
+      </div>
+    </section>
+  </main>
+  <Foot />
+  <SiteScripts />
+</Layout>
